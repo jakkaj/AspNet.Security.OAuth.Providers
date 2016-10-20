@@ -6,39 +6,44 @@
 
 using Microsoft.AspNetCore.Builder;
 
-namespace AspNet.Security.OAuth.Myob {
+namespace AspNet.Security.OAuth.StackExchange {
     /// <summary>
-    /// Default values used by the Myob authentication middleware.
+    /// Default values used by the StackExchange authentication middleware.
     /// </summary>
-    public static class MyobAuthenticationDefaults {
+    public static class StackExchangeAuthenticationDefaults {
         /// <summary>
         /// Default value for <see cref="AuthenticationOptions.AuthenticationScheme"/>.
         /// </summary>
-        public const string AuthenticationScheme = "Myob";
+        public const string AuthenticationScheme = "StackExchange";
 
         /// <summary>
         /// Default value for <see cref="RemoteAuthenticationOptions.DisplayName"/>.
         /// </summary>
-        public const string DisplayName = "Myob";
+        public const string DisplayName = "StackExchange";
 
         /// <summary>
         /// Default value for <see cref="AuthenticationOptions.ClaimsIssuer"/>.
         /// </summary>
-        public const string Issuer = "Myob";
+        public const string Issuer = "StackExchange";
 
         /// <summary>
         /// Default value for <see cref="RemoteAuthenticationOptions.CallbackPath"/>.
         /// </summary>
-        public const string CallbackPath = "/signin-myob";
+        public const string CallbackPath = "/signin-stackexchange";
 
         /// <summary>
         /// Default value for <see cref="OAuthOptions.AuthorizationEndpoint"/>.
         /// </summary>
-        public const string AuthorizationEndpoint = "https://secure.myob.com/oauth2/account/authorize";
+        public const string AuthorizationEndpoint = "https://stackexchange.com/oauth";
 
         /// <summary>
         /// Default value for <see cref="OAuthOptions.TokenEndpoint"/>.
         /// </summary>
-        public const string TokenEndpoint = "https://secure.myob.com/oauth2/v1/authorize";
+        public const string TokenEndpoint = "https://stackexchange.com/oauth/access_token";
+
+        /// <summary>
+        /// Default value for <see cref="OAuthOptions.UserInformationEndpoint"/>.
+        /// </summary>
+        public const string UserInformationEndpoint = "https://api.stackexchange.com/2.2/me";
     }
 }

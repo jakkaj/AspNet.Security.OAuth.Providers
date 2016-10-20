@@ -5,7 +5,6 @@
  */
 
 using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using AspNet.Security.OAuth.Extensions;
@@ -13,7 +12,6 @@ using JetBrains.Annotations;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.OAuth;
 using Microsoft.AspNetCore.Http.Authentication;
-using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
 
 namespace AspNet.Security.OAuth.Myob {
@@ -24,17 +22,13 @@ namespace AspNet.Security.OAuth.Myob {
 
         protected override async Task<AuthenticationTicket> CreateTicketAsync([NotNull] ClaimsIdentity identity,
             [NotNull] AuthenticationProperties properties, [NotNull] OAuthTokenResponse tokens) {
-
-
-            //Myob doesn't provide a user information end point, so we rely on the details sent back in the token request. 
+            // Note: MYOB doesn't provide a user information endpoint,
+            // so we rely on the details sent back in the token request. 
             var user = (JObject) tokens.Response.SelectToken("user");
 
-            identity.AddOptionalClaim(ClaimTypes.NameIdentifier, MyobAuthenticationHelper.GetIdentifier(user), 
-                Options.ClaimsIssuer);
+            identity.AddOptionalClaim(ClaimTypes.NameIdentifier, MyobAuthenticationHelper.GetIdentifier(user), Options.ClaimsIssuer)
+                    .AddOptionalClaim(ClaimTypes.Name, MyobAuthenticationHelper.GetUsername(user), Options.ClaimsIssuer);
 
-            identity.AddOptionalClaim(ClaimTypes.Name, MyobAuthenticationHelper.GetUsername(user),
-                Options.ClaimsIssuer);
-            
             var principal = new ClaimsPrincipal(identity);
             var ticket = new AuthenticationTicket(principal, properties, Options.AuthenticationScheme);
 

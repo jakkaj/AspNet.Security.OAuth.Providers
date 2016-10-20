@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Licensed under the Apache License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0)
  * See https://github.com/aspnet-contrib/AspNet.Security.OAuth.Providers
  * for more information concerning the license and the contributors participating to this project.
@@ -13,22 +13,20 @@ using JetBrains.Annotations;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.OAuth;
 using Microsoft.AspNetCore.Http.Authentication;
-using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
 
-namespace AspNet.Security.OAuth.Slack {
-    public class SlackAuthenticationHandler : OAuthHandler<SlackAuthenticationOptions> {
-        public SlackAuthenticationHandler([NotNull] HttpClient client)
+namespace AspNet.Security.OAuth.Strava {
+    public class StravaAuthenticationHandler : OAuthHandler<StravaAuthenticationOptions> {
+        public StravaAuthenticationHandler([NotNull] HttpClient client)
             : base(client) {
         }
 
         protected override async Task<AuthenticationTicket> CreateTicketAsync([NotNull] ClaimsIdentity identity,
             [NotNull] AuthenticationProperties properties, [NotNull] OAuthTokenResponse tokens) {
-            var address = QueryHelpers.AddQueryString(Options.UserInformationEndpoint, "token", tokens.AccessToken);
-
-            var request = new HttpRequestMessage(HttpMethod.Get, address);
+            var request = new HttpRequestMessage(HttpMethod.Get, Options.UserInformationEndpoint);
             request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", tokens.AccessToken);
 
             var response = await Backchannel.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, Context.RequestAborted);
             if (!response.IsSuccessStatusCode) {
@@ -43,16 +41,9 @@ namespace AspNet.Security.OAuth.Slack {
 
             var payload = JObject.Parse(await response.Content.ReadAsStringAsync());
 
-            identity.AddOptionalClaim(ClaimTypes.NameIdentifier, SlackAuthenticationHelper.GetUserIdentifier(payload), Options.ClaimsIssuer)
-                    .AddOptionalClaim(ClaimTypes.Name, SlackAuthenticationHelper.GetUserName(payload), Options.ClaimsIssuer)
-                    .AddOptionalClaim("urn:slack:team_id", SlackAuthenticationHelper.GetTeamIdentifier(payload), Options.ClaimsIssuer)
-                    .AddOptionalClaim("urn:slack:team_name", SlackAuthenticationHelper.GetTeamName(payload), Options.ClaimsIssuer)
-                    .AddOptionalClaim("urn:slack:team_url", SlackAuthenticationHelper.GetTeamLink(payload), Options.ClaimsIssuer)
-                    .AddOptionalClaim("urn:slack:bot:user_id", SlackAuthenticationHelper.GetBotUserId(payload), Options.ClaimsIssuer)
-                    .AddOptionalClaim("urn:slack:bot:access_token", SlackAuthenticationHelper.GetBotAccessToken(payload), Options.ClaimsIssuer)
-                    .AddOptionalClaim("urn:slack:webhook:channel", SlackAuthenticationHelper.GetWebhookChannel(payload), Options.ClaimsIssuer)
-                    .AddOptionalClaim("urn:slack:webhook:url", SlackAuthenticationHelper.GetWebhookURL(payload), Options.ClaimsIssuer)
-                    .AddOptionalClaim("urn:slack:webhook:configuration_url", SlackAuthenticationHelper.GetWebhookConfigurationURL(payload), Options.ClaimsIssuer);
+            identity.AddOptionalClaim(ClaimTypes.NameIdentifier, StravaAuthenticationHelper.GetIdentifier(payload), Options.ClaimsIssuer)
+                    .AddOptionalClaim(ClaimTypes.Name, StravaAuthenticationHelper.GetUsername(payload), Options.ClaimsIssuer)
+                    .AddOptionalClaim(ClaimTypes.Email, StravaAuthenticationHelper.GetEmail(payload), Options.ClaimsIssuer);
 
             var principal = new ClaimsPrincipal(identity);
             var ticket = new AuthenticationTicket(principal, properties, Options.AuthenticationScheme);

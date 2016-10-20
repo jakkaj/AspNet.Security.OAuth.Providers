@@ -6,39 +6,44 @@
 
 using Microsoft.AspNetCore.Builder;
 
-namespace AspNet.Security.OAuth.Myob {
+namespace AspNet.Security.OAuth.Strava {
     /// <summary>
-    /// Default values used by the Myob authentication middleware.
+    /// Default values used by the Strava authentication middleware.
     /// </summary>
-    public static class MyobAuthenticationDefaults {
+    public static class StravaAuthenticationDefaults {
         /// <summary>
         /// Default value for <see cref="AuthenticationOptions.AuthenticationScheme"/>.
         /// </summary>
-        public const string AuthenticationScheme = "Myob";
+        public const string AuthenticationScheme = "Strava";
 
         /// <summary>
         /// Default value for <see cref="RemoteAuthenticationOptions.DisplayName"/>.
         /// </summary>
-        public const string DisplayName = "Myob";
+        public const string DisplayName = "Strava";
 
         /// <summary>
         /// Default value for <see cref="AuthenticationOptions.ClaimsIssuer"/>.
         /// </summary>
-        public const string Issuer = "Myob";
+        public const string Issuer = "Strava";
 
         /// <summary>
         /// Default value for <see cref="RemoteAuthenticationOptions.CallbackPath"/>.
         /// </summary>
-        public const string CallbackPath = "/signin-myob";
+        public const string CallbackPath = "/signin-strava";
 
         /// <summary>
         /// Default value for <see cref="OAuthOptions.AuthorizationEndpoint"/>.
         /// </summary>
-        public const string AuthorizationEndpoint = "https://secure.myob.com/oauth2/account/authorize";
+        public const string AuthorizationEndpoint = "https://www.strava.com/oauth/authorize";
 
         /// <summary>
         /// Default value for <see cref="OAuthOptions.TokenEndpoint"/>.
         /// </summary>
-        public const string TokenEndpoint = "https://secure.myob.com/oauth2/v1/authorize";
+        public const string TokenEndpoint = "https://www.strava.com/oauth/token";
+
+        /// <summary>
+        /// Default value for <see cref="OAuthOptions.UserInformationEndpoint"/>.
+        /// </summary>
+        public const string UserInformationEndpoint = "https://www.strava.com/api/v3/athlete";
     }
 }

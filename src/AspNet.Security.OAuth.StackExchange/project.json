@@ -1,7 +1,7 @@
 {
     "version": "1.0.0-beta2-*",
-    "description": "ASP.NET Core security middleware enabling MYOB authentication.",
-    "authors": [ "Jordan Knight" ],
+    "description": "ASP.NET Core security middleware enabling StackExchange authentication.",
+    "authors": [ "Andrew Lock" ],
 
   "packOptions": {
     "owners": [ "Kévin Chalet", "Jerrie Pelser" ],
@@ -16,12 +16,9 @@
     },
 
     "tags": [
-      "accountright",
       "aspnetcore",
       "authentication",
-      "essentials",
-      "exo",
-      "myob",
+      "stackexchange",
       "oauth",
       "security"
     ]
@@ -36,7 +33,8 @@
   "dependencies": {
     "AspNet.Security.OAuth.Extensions": { "target": "project", "type": "build" },
     "JetBrains.Annotations": { "type": "build", "version": "10.1.4" },
-    "Microsoft.AspNetCore.Authentication.OAuth": "1.0.0"
+    "Microsoft.AspNetCore.Authentication.OAuth": "1.0.0",
+    "Microsoft.AspNetCore.WebUtilities": "1.0.0"
   },
 
   "frameworks": {

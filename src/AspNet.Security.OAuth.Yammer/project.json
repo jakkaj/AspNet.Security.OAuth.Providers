@@ -1,7 +1,8 @@
-{
-    "version": "1.0.0-beta2-*",
-    "description": "ASP.NET Core security middleware enabling MYOB authentication.",
-    "authors": [ "Jordan Knight" ],
+﻿{
+  "version": "1.0.0-beta2-*",
+
+  "description": "ASP.NET Core security middleware enabling Yammer authentication.",
+  "authors": [ "Albert Zakiev" ],
 
   "packOptions": {
     "owners": [ "Kévin Chalet", "Jerrie Pelser" ],
@@ -16,14 +17,11 @@
     },
 
     "tags": [
-      "accountright",
       "aspnetcore",
       "authentication",
-      "essentials",
-      "exo",
-      "myob",
       "oauth",
-      "security"
+      "security",
+      "yammer"
     ]
   },
 
@@ -40,9 +38,13 @@
   },
 
   "frameworks": {
-    "net451": { },
+    "net451": {},
 
     "netstandard1.3": {
+      "dependencies": {
+        "System.Dynamic.Runtime": "4.0.11"
+      },
+
       "imports": [
         "dotnet5.4",
         "portable-net451+win8"

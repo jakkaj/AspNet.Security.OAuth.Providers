@@ -6,39 +6,39 @@
 
 using Microsoft.AspNetCore.Builder;
 
-namespace AspNet.Security.OAuth.Myob {
+namespace AspNet.Security.OAuth.Yammer {
     /// <summary>
-    /// Default values used by the Myob authentication middleware.
+    /// Default values used by the Yamer authentication middleware.
     /// </summary>
-    public static class MyobAuthenticationDefaults {
+    public static class YammerAuthenticationDefaults {
         /// <summary>
         /// Default value for <see cref="AuthenticationOptions.AuthenticationScheme"/>.
         /// </summary>
-        public const string AuthenticationScheme = "Myob";
+        public const string AuthenticationScheme = "Yammer";
 
         /// <summary>
         /// Default value for <see cref="RemoteAuthenticationOptions.DisplayName"/>.
         /// </summary>
-        public const string DisplayName = "Myob";
+        public const string DisplayName = "Yammer";
 
         /// <summary>
         /// Default value for <see cref="AuthenticationOptions.ClaimsIssuer"/>.
         /// </summary>
-        public const string Issuer = "Myob";
-
-        /// <summary>
-        /// Default value for <see cref="RemoteAuthenticationOptions.CallbackPath"/>.
-        /// </summary>
-        public const string CallbackPath = "/signin-myob";
+        public const string Issuer = "Yammer";
 
         /// <summary>
         /// Default value for <see cref="OAuthOptions.AuthorizationEndpoint"/>.
         /// </summary>
-        public const string AuthorizationEndpoint = "https://secure.myob.com/oauth2/account/authorize";
+        public const string AuthorizationEndpoint = "https://www.yammer.com/oauth2/authorize";
 
         /// <summary>
         /// Default value for <see cref="OAuthOptions.TokenEndpoint"/>.
         /// </summary>
-        public const string TokenEndpoint = "https://secure.myob.com/oauth2/v1/authorize";
+        public const string TokenEndpoint = "https://www.yammer.com/oauth2/access_token";
+
+        /// <summary>
+        /// Default value for <see cref="OAuthOptions.UserInformationEndpoint"/>.
+        /// </summary>
+        public const string UserInformationEndpoint = "https://www.yammer.com/api/v1/users/current.json";
     }
 }
